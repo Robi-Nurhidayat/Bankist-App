@@ -105,6 +105,20 @@ const calcSummaryBalance = function(acc) {
 };
 
 calcSummaryBalance(account1);
+
+const getUsername = function(acc) {
+    acc.forEach(val => {
+        val.username = val.owner
+            .toLowerCase()
+            .split(' ')
+            .map(val => val[0])
+            .join('');
+    });
+};
+
+getUsername(accounts);
+
+console.log(accounts);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -119,14 +133,14 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
-const getFirstName = function(acc) {
-    const namaSmall = acc
-        .toLowerCase()
-        .split(' ')
-        .map(nama => nama[0])
-        .join('');
+// const getFirstName = function(acc) {
+//     const namaSmall = acc
+//         .toLowerCase()
+//         .split(' ')
+//         .map(nama => nama[0])
+//         .join('');
 
-    return namaSmall;
-};
+//     return namaSmall;
+// };
 
-console.log(getFirstName(account1.owner));
+// console.log(getFirstName(account1.owner));

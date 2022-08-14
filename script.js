@@ -138,8 +138,12 @@ btnLogin.addEventListener('click', function(e) {
         updateUi(currentAccount);
 
         inputLoginUsername.value = inputLoginPin.value = '';
+        inputLoginUsername.blur();
+        inputLoginPin.blur();
     }
 });
+
+btn;
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

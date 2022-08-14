@@ -74,15 +74,11 @@ const displayMovements = function(acc) {
     });
 };
 
-displayMovements(account1);
-
 const calcCurrentBalance = function(acc) {
     acc.balance = acc.movements.reduce((acc, cur) => acc + cur);
     const balance = acc.balance;
     labelBalance.textContent = `${balance}`;
 };
-
-calcCurrentBalance(account1);
 
 const calcSummaryBalance = function(acc) {
     const summaryIn = acc.movements
@@ -104,8 +100,6 @@ const calcSummaryBalance = function(acc) {
     labelSumInterest.textContent = `${summaryInterest}`;
 };
 
-calcSummaryBalance(account1);
-
 const getUsername = function(acc) {
     acc.forEach(val => {
         val.username = val.owner
@@ -118,7 +112,35 @@ const getUsername = function(acc) {
 
 getUsername(accounts);
 
-console.log(accounts);
+const updateUi = function(acc) {
+    // display balance
+    calcCurrentBalance(acc);
+
+    // display summary
+    calcSummaryBalance(acc);
+
+    // display movements
+    displayMovements(acc);
+};
+
+// event handler
+let currentAccount;
+btnLogin.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    currentAccount = accounts.find(
+        acc => acc.username === inputLoginUsername.value
+    );
+
+    if (currentAccount.pin === Number(inputLoginPin.value)) {
+        // menampilkan menu utama (App)
+        containerApp.style.opacity = 100;
+        updateUi(currentAccount);
+
+        inputLoginUsername.value = inputLoginPin.value = '';
+    }
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES

@@ -143,7 +143,13 @@ btnLogin.addEventListener('click', function(e) {
     }
 });
 
-btn;
+// btn transfer
+btnTransfer.addEventListener('click', function(e) {
+    e.preventDefault();
+});
+
+// btn loan
+btnLoan.addEventListener('click', function() {});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

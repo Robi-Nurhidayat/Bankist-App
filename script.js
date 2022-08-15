@@ -146,6 +146,24 @@ btnLogin.addEventListener('click', function(e) {
 // btn transfer
 btnTransfer.addEventListener('click', function(e) {
     e.preventDefault();
+
+    const userReceiver = accounts.find(
+        user => user.owner === inputTransferTo.value
+    );
+
+    const amount = Number(inputTransferAmount.value) * 0.1;
+
+    if (
+        userReceiver.owner !== currentAccount.owner &&
+        currentAccount.balance > amount
+    ) {
+        currentAccount.movements.push(-amount);
+        userReceiver.movements.push(amount);
+
+        updateUi(currentAccount);
+    }
+
+    inputTransferTo.value = inputTransferAmount.value = '';
 });
 
 // btn loan

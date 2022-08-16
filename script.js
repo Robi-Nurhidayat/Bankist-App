@@ -167,7 +167,15 @@ btnTransfer.addEventListener('click', function(e) {
 });
 
 // btn loan
-btnLoan.addEventListener('click', function() {});
+btnLoan.addEventListener('click', function(e) {
+    e.preventDefault();
+    const amount = Number(inputLoanAmount.value) * 0.1;
+
+    currentAccount.movements.push(amount);
+
+    inputLoanAmount.value = '';
+    updateUi(currentAccount);
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

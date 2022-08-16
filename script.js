@@ -177,6 +177,21 @@ btnLoan.addEventListener('click', function(e) {
     updateUi(currentAccount);
 });
 
+// close account
+
+btnClose.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const closeAccount = accounts.findIndex(
+        acc => acc.username === currentAccount.username
+    );
+
+    accounts.splice(closeAccount, 1);
+
+    containerApp.style.opacity = 0;
+});
+
+console.log(accounts);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES

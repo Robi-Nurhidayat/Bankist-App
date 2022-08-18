@@ -61,8 +61,11 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function(acc) {
-    const movements = acc.movements.forEach(function(mov, i) {
+const displayMovements = function(acc, sort = false) {
+    const movs = sort ?
+        acc.movements.slice().sort((a, b) => a - b) :
+        acc.movements;
+    movs.forEach(function(mov, i) {
         const deposit = mov > 0 ? 'deposit' : 'withdrawal';
         const html = `<div class="movements__row">
                     <div class="movements__type movements__type--${deposit}">${i} ${deposit}</div>
@@ -169,12 +172,14 @@ btnTransfer.addEventListener('click', function(e) {
 // btn loan
 btnLoan.addEventListener('click', function(e) {
     e.preventDefault();
-    const amount = Number(inputLoanAmount.value) * 0.1;
+    const amount = Number(inputLoanAmount.value);
 
-    currentAccount.movements.push(amount);
+    if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+        currentAccount.movements.push(amount);
+        updateUi(currentAccount);
+    }
 
     inputLoanAmount.value = '';
-    updateUi(currentAccount);
 });
 
 // close account
@@ -192,6 +197,13 @@ btnClose.addEventListener('click', function(e) {
 });
 
 console.log(accounts);
+
+let sorted = false;
+btnSort.addEventListener('click', function(e) {
+    e.preventDefault();
+    displayMovements(currentAccount, !sorted);
+    sorted = !sorted;
+});
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -217,3 +229,18 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // };
 
 // console.log(getFirstName(account1.owner));
+
+console.log(movements);
+
+// movements.sort((a, b) => {
+//     if (a > b) {
+//         return 1;
+//     }
+//     if (b > a) {
+//         return -1;
+//     }
+// });
+
+movements.sort((a, b) => b - a);
+
+console.log(movements);

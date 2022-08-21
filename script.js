@@ -272,3 +272,80 @@ labelBalance.addEventListener('click', function () {
 
   console.log(movementsUI);
 });
+
+// latihan array
+
+// 1) menghitung jumlah pemasukkan bank
+
+const bankDepositSum = accounts
+  .flatMap(mov => mov.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, curr) => sum + curr);
+console.log(bankDepositSum);
+
+// 2). menghitung jumlah simpanan yang ada di bank minimal 1000$
+// cara 1 menggunakan filter
+// const sumDeposit1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+// console.log(sumDeposit1000);
+
+// cara 2 menggunakan reduce
+const sumDeposit1000 = accounts
+  .flatMap(acc => acc.movements)
+  // .reduce((count, curr) => (curr >= 1000 ? (count += 1) : count), 0);
+  .reduce((count, curr) => (curr >= 1000 ? ++count : count), 0);
+
+console.log(sumDeposit1000);
+console.log(accounts);
+
+// 3) menentukan mana deposit dan withdrawls
+
+const { deposit, withdrawls } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, curr) => {
+      // cara 1
+
+      // curr > 0 ? (sums.deposit += curr) : (sums.withdrawls += curr);
+      // return sums;
+
+      // cara 2
+
+      sums[curr > 0 ? 'deposit' : 'withdrawls'] += curr;
+
+      return sums;
+    },
+    { deposit: 0, withdrawls: 0 }
+  );
+
+console.log(deposit, withdrawls);
+
+// 4) konversi huruf awal judul menjadi kapital
+// example -> this is a nice title = This Is a Nice Title
+
+const convertTitleCase = function (title) {
+  // versi robi
+  // const judul = title
+  //   .split(' ')
+  //   .map(val => {
+  //     return val.length === 1 ? val : val[0].toUpperCase() + val.slice(1);
+  //   })
+  //   .join(' ');
+  // return judul;
+
+  // versi jonas
+
+  const expections = ['a', 'an', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word =>
+      expections.includes(word) ? word : word[0].toUpperCase() + word.slice(1)
+    )
+    .join(' ');
+  return titleCase;
+};
+
+console.log(convertTitleCase('this is a nice title'));
